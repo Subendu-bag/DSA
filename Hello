@@ -1,0 +1,239 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Definition of BST node
+struct Node
+{
+    int data;
+    struct Node *left;
+    struct Node *right;
+};
+
+typedef struct Node node;
+typedef struct Node *tree;
+tree root;
+
+tree find(tree temp, int val)
+{
+
+    if (temp == NULL)
+        return temp;
+    else if (temp->data == val)
+        return temp;
+    else if (temp->data > val)
+    {
+        if (temp->left == NULL)
+            return temp;
+        else
+            return (find(temp->left, val));
+    }
+    else
+    {
+        if (temp->right == NULL)
+            return temp;
+        else
+            return (find(temp->right, val));
+    }
+}
+
+void insert(tree temp, int val)
+{
+    tree place;
+
+    place = find(temp, val);
+
+    if (place == NULL)
+    {
+        root = (tree)malloc(sizeof(node));
+
+        root->data = val;
+
+        root->left = NULL;
+
+        root->right = NULL;
+    }
+    else if (place->data > val)
+    {
+
+        place->left = (tree)malloc(sizeof(node));
+
+        place->left->data = val;
+
+        place->left->left = NULL;
+
+        place->left->right = NULL;
+    }
+    else if (place->data < val)
+    {
+        place->right = (tree)malloc(sizeof(node));
+
+        place->right->data = val;
+
+        place->right->left = NULL;
+
+        place->right->right = NULL;
+    }
+}
+
+
+int main()
+{
+    int choice, value, key;
+
+    do
+    {
+        printf("Enter (1) to insert.\n");
+        printf("Enter (2) to search.\n");
+        printf("Enter (3) to exit.\n\n");
+
+        scanf("%d", &choice);
+
+        if (choice == 1)
+        {
+            printf("Enter value to insert: ");
+            scanf("%d", &value);
+            insert(root, value);
+        }
+        else if (choice == 2)
+        {
+            printf("Enter value to search: ");
+            scanf("%d", &key);
+            if (find(root, key)->data == key)
+                printf("Element FOUND in BST\n");
+            else
+                printf("Element NOT FOUND in BST\n");
+        }
+
+    } while (choice != 3);
+
+    printf("Exit");
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// BST node structure
+struct Node
+{
+    int data;
+    struct Node *left;
+    struct Node *right;
+};
+
+typedef struct Node node;
+typedef struct Node *tree;
+tree root;
+
+tree find(tree temp, int val)
+{
+
+    if (temp == NULL)
+        return temp;
+    else if (temp->data == val)
+        return temp;
+    else if (temp->data > val)
+    {
+        if (temp->left == NULL)
+            return temp;
+        else
+            return (find(temp->left, val));
+    }
+    else
+    {
+        if (temp->right == NULL)
+            return temp;
+        else
+            return (find(temp->right, val));
+    }
+}
+
+void insert(tree temp, int val)
+{
+    tree place;
+
+    place = find(temp, val);
+
+    if (place == NULL)
+    {
+        root = (tree)malloc(sizeof(node));
+
+        root->data = val;
+
+        root->left = NULL;
+
+        root->right = NULL;
+    }
+    else if (place->data > val)
+    {
+
+        place->left = (tree)malloc(sizeof(node));
+
+        place->left->data = val;
+
+        place->left->left = NULL;
+
+        place->left->right = NULL;
+    }
+    else if (place->data < val)
+    {
+        place->right = (tree)malloc(sizeof(node));
+
+        place->right->data = val;
+
+        place->right->left = NULL;
+
+        place->right->right = NULL;
+    }
+}
+
+// Find minimum value in BST
+int findMin() {
+    if (root == NULL) {
+        printf("BST is empty.");
+        return -1;
+    }
+
+    while (root->left != NULL) {
+        root = root->left;
+    }
+
+    return root->data;
+}
+
+// Main function
+int main() {
+    int choice, value, min;
+
+    do {
+        printf("Enter (1) to insert.\n");
+        printf("Enter (2) to find minimum.\n");
+        printf("Enter (3) to exit.\n\n");
+
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            printf("Enter value to insert: ");
+            scanf("%d", &value);
+            insert(root, value);
+        }
+        else if (choice == 2) {
+            min = findMin();
+            if (min != -1)
+                printf("Minimum value in BST = %d\n\n", min);
+        }
+
+    } while (choice != 3);
+
+    printf("Exit");
+
+    return 0;
+}
